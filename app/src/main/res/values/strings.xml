@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">WarpSpeedAssessment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_thumbnail">Movie Thumbnail</string>
+    <string name="action_back">Go back</string>
+    <string name="movie_rating">Movie Rating</string>
+    <string name="story_line">Story Line</string>
+    <string name="place_holder_movie_plot">"Create a Movie Search Application using Kotlin that interacts with the OMDb API. The app should feature a main page with a search tab and a list of movies retrieved from the API. When a list item is clicked"</string>
+    <string name="directed_by">Directed By: %1s</string>
+    <string name="top_casts">Top Cast</string>
+    <string name="actors_image">Actors Image</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="warpspeed_movie_archive">WarpSpeed Movie Archive</string>
+    <string name="search_movie">Search Movies...</string>
+    <string name="failed_tryagain">Failed, Please try again later!</string>
+    <string name="time_out">Time out, kindly try again later</string>
+    <string name="server_error">Service time out, try again later</string>
+</resources>

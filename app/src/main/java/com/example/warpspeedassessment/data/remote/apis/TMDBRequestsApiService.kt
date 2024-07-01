@@ -10,7 +10,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TMDBRequestsApiService {
-    @GET("search/movie?query={movie_title}&include_adult=false&language=en-US&page=1")
+    @GET("search/movie")
     @AuthorizedRequest
     suspend fun searchMovie(
         @Query("query") query: String,
@@ -26,7 +26,7 @@ interface TMDBRequestsApiService {
         @Query("language") language: String
     ): Response<MovieDetailsResponseDto>
 
-    @GET("movie_id/credits?language=en-US")
+    @GET("{movie_id}/{credits}")
     @AuthorizedRequest
     suspend fun getMovieCasts(
         @Path("movie_id") movieId: String,

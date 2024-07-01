@@ -1,5 +1,7 @@
 package com.example.warpspeedassessment.utils.mappers
 
+import com.example.warpspeedassessment.data.local.database.entities.MovieDetailsEntity
+import com.example.warpspeedassessment.data.local.database.entities.MovieEntity
 import com.example.warpspeedassessment.data.remote.dtos.Cast
 import com.example.warpspeedassessment.data.remote.dtos.Crew
 import com.example.warpspeedassessment.data.remote.dtos.Genre
@@ -14,16 +16,17 @@ import com.example.warpspeedassessment.domain.models.MovieDetails
 import com.example.warpspeedassessment.domain.models.MovieGenreDomain
 
 object AppDataMapper {
-    fun Result.toMovie(): Movie =
+    fun Result.toMovie(pageNumber: Int): Movie =
         Movie(
-            id,
+            id.toString(),
             title,
             poster_path,
             backdrop_path,
             release_date,
             overview,
             vote_count.toString(),
-            vote_average.toString()
+            vote_average.toString(),
+            pageNumber
         )
 
     fun MovieDetailsResponseDto.toMovieDetails() =
@@ -43,19 +46,74 @@ object AppDataMapper {
 
     private fun Genre.toMovieGenreDomain(): MovieGenreDomain = MovieGenreDomain(id, name)
 
-    private fun Crew.toMovieCrewDomain() =
+    fun Crew.toMovieCrewDomain() =
         MovieCrewDomain(id.toString(), credit_id, job, name, profile_path)
 
 
-    private fun Cast.toMovieCastDomain() =
+    fun Cast.toMovieCastDomain() =
         MovieCastDomain(id.toString(), cast_id.toString(), name, profile_path)
 
-    fun MovieCastsResponseDto.toMovieCastAndCrew() =
+    fun MovieCastsResponseDto.toMovieCastAndCrew(): MovieCastsAndCrew =
         MovieCastsAndCrew(
             id.toString(),
             cast.map { it.toMovieCastDomain() },
             crew.find { it.job.equals("Director", true) }?.toMovieCrewDomain()
         )
+
+    fun Movie.toMovieEntity(): MovieEntity = MovieEntity(
+        id.toInt(),
+        title,
+        posterPath,
+        backDropPath,
+        releaseDate,
+        overview,
+        voteCount,
+        voteAverageRating,
+        pageNumber
+    )
+
+    fun MovieEntity.toMovie(): Movie = Movie(
+        id.toString(),
+        title,
+        posterPath,
+        backDropPath,
+        releaseDate,
+        overview,
+        voteCount,
+        voteAverageRating,
+        pageNum
+    )
+
+    fun MovieDetails.toMovieDetailsEntity(): MovieDetailsEntity =
+        MovieDetailsEntity(
+            id,
+            title,
+            posterPath,
+            backDropPath,
+            overview,
+            releaseDate,
+            runTime,
+            voteCount,
+            voteAverageRating,
+            directorName,
+            casts,
+            genres
+        )
+
+    fun MovieDetailsEntity.toMovieDetails(): MovieDetails = MovieDetails(
+        id,
+        title,
+        posterPath,
+        backDropPath,
+        overview,
+        releaseDate,
+        runTime,
+        voteCount,
+        voteAverageRating,
+        directorName,
+        casts,
+        genres
+    )
 
     private fun Int.runTimeToString(): String {
         val hrs = this / 60

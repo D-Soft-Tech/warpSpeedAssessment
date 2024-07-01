@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.logging.interceptor.dependency)
     implementation(libs.dprefs.library)
+    implementation(libs.androidx.room.ktx)
     annotationProcessor(libs.room.annotation.processor.dependency)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

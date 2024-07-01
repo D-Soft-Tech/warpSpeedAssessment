@@ -1,4 +1,4 @@
-package com.example.warpspeedassessment.domain.contracts
+package com.example.warpspeedassessment.domain.usecases.contracts
 
 import com.example.warpspeedassessment.domain.models.MovieDetails
 import com.example.warpspeedassessment.presentation.viewStates.ViewState
@@ -8,5 +8,5 @@ interface GetMovieDetailsRepository {
     suspend fun getMovieDetails(
         movieId: String,
         language: String = "en-US"
-    ): ViewState<MovieDetails?>
+    ): ViewState<MovieDetails>
 }

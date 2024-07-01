@@ -19,6 +19,7 @@ navVersion = "2.7.7"
 legacySupportV4 = "1.0.0"
 loggingInterceptorVersion = "4.9.0"
 dPrefsVersion = "1.0.5"
+roomKtx = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -42,6 +43,7 @@ nav-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.re
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
 logging-interceptor-dependency = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptorVersion"}
 dprefs-library = { group = "com.github.D-Soft-Tech", name = "DPrefs", version.ref = "dPrefsVersion"}
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

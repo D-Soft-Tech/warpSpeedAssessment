@@ -1,4 +1,4 @@
-package com.example.warpspeedassessment.presentation.ui
+package com.example.warpspeedassessment.presentation.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

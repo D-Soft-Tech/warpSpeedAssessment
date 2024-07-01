@@ -5,7 +5,12 @@
     tools:context=".presentation.ui.fragments.SearchMovieFragment">
 
     <data>
-
+        <variable
+            name="appViewModel"
+            type="com.example.warpspeedassessment.presentation.viewModels.MovieViewModel" />
+        <import type="com.example.warpspeedassessment.presentation.viewStates.ViewState" />
+        <import type="com.example.warpspeedassessment.presentation.viewStates.Status" />
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,6 +59,31 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/movie_list_rv_item_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_tool_bar" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateDrawable="@drawable/progress_bar_bg_drawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{appViewModel.movieSearchResult.status == Status.LOADING ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_tool_bar" />
+
+        <TextView
+            android:id="@+id/error_message_text_View"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:text="@string/no_records_found"
+            android:textSize="@dimen/dimen_16sp"
+            android:visibility="@{(appViewModel.movieSearchResult.status == Status.ERROR || appViewModel.movieSearchResult.status == Status.TIMEOUT || appViewModel.movieSearchResult.status == Status.SERVER_ERROR) ? View.VISIBLE : View.GONE}"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/app_tool_bar" />

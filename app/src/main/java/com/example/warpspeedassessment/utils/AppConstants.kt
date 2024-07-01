@@ -17,5 +17,4 @@ object AppConstants {
     const val LOGGING_INTERCEPTOR_DI_NAME = "LOGGING_INTERCEPTOR_DI_NAME"
     const val TIME_OUT_20 = 20L
     const val SAMPLE_MOVIE_SEARCH_QUERY = "Legend"
-    val aa = "search/movie?query=legend&include_adult=false&language=en-US&page=1"
 }

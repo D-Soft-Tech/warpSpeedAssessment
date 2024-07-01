@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/black"
-    android:paddingVertical="@dimen/dimen_5dp"
-    android:paddingHorizontal="@dimen/dimen_3dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
+    <data>
+        <variable
+            name="movie"
+            type="com.example.warpspeedassessment.domain.models.Movie" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dimen_10dp"
-        app:cardElevation="@dimen/dimen_5dp"
-        app:cardBackgroundColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/black"
+        android:paddingVertical="@dimen/dimen_5dp"
+        android:paddingHorizontal="@dimen/dimen_3dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/black">
+            app:cardCornerRadius="@dimen/dimen_10dp"
+            app:cardElevation="@dimen/dimen_5dp"
+            app:cardBackgroundColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="@dimen/dimen_130dp"
-                android:layout_height="@dimen/dimen_190dp"
-                android:background="@drawable/circular_img_bg"
-                android:scaleType="centerCrop"
-                android:contentDescription="@string/actors_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/new_profile_picture_preferred_cropped" />
-
-            <TextView
-                android:id="@+id/textView"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_15dp"
-                android:fontFamily="@font/poppins"
-                android:maxLines="2"
-                android:textColor="@color/off_white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                app:layout_constraintStart_toStartOf="@+id/imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4"
-                tools:text="Chad Wick" />
+                android:background="@color/black">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="@dimen/dimen_130dp"
+                    android:layout_height="@dimen/dimen_190dp"
+                    android:background="@drawable/circular_img_bg"
+                    android:scaleType="centerCrop"
+                    android:loadPoster="@{movie.posterPath}"
+                    android:contentDescription="@string/actors_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@drawable/new_profile_picture_preferred_cropped" />
 
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_15dp"
+                    android:fontFamily="@font/poppins"
+                    android:maxLines="2"
+                    android:text="@{movie.title}"
+                    android:textColor="@color/off_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                    app:layout_constraintStart_toStartOf="@+id/imageView4"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView4"
+                    tools:text="Chad Wick" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

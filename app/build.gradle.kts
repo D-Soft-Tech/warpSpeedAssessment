@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("androidx.navigation.safeargs.kotlin")
+    //id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -52,7 +54,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -70,6 +71,9 @@ dependencies {
     implementation(libs.logging.interceptor.dependency)
     implementation(libs.dprefs.library)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.coil.dependency)
+    implementation(libs.view.model.kts)
+    implementation(libs.view.model.save.state.instance)
     annotationProcessor(libs.room.annotation.processor.dependency)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

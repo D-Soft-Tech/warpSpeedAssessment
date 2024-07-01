@@ -10,9 +10,18 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.warpspeedassessment.R
 import com.example.warpspeedassessment.databinding.FragmentSearchMovieBinding
+import com.example.warpspeedassessment.presentation.adapters.assistedFactories.MovieRecyclerViewPagingAdapterFactory
+import com.example.warpspeedassessment.presentation.adapters.pagingAdapter.MoviePagingAdapter
+import com.example.warpspeedassessment.presentation.viewModels.MovieViewModel
+import com.example.warpspeedassessment.presentation.viewStates.Status
+import dagger.assisted.AssistedFactory
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchMovieFragment : Fragment() {
@@ -22,6 +31,13 @@ class SearchMovieFragment : Fragment() {
     private lateinit var searchIcon: ImageView
     private lateinit var searchView: SearchView
     private lateinit var appBarTitle: TextView
+    private lateinit var rv: RecyclerView
+
+    private lateinit var moviePagingAdapter: MoviePagingAdapter
+    @Inject
+    lateinit var moviePagingAdapterFactory: MovieRecyclerViewPagingAdapterFactory
+
+    private val viewModel: MovieViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +54,23 @@ class SearchMovieFragment : Fragment() {
         searchIcon.setOnClickListener {
             toggleSearchView()
         }
+
+//        moviePagingAdapter = moviePagingAdapterFactory.createMovieRecyclerViewPagingAdapter {
+//            val action = SearchMovieFragmentDirections.actionSearchMovieFragmentToMovieDetailsFragment(it.id)
+//            findNavController().navigate(action)
+//        }
+
+        moviePagingAdapter = MoviePagingAdapter {
+            val action = SearchMovieFragmentDirections.actionSearchMovieFragmentToMovieDetailsFragment(it.id)
+            findNavController().navigate(action)
+        }
+
+        rv.adapter = moviePagingAdapter
+
+        binding.apply {
+            appViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 
     private fun initViews() {
@@ -47,6 +80,16 @@ class SearchMovieFragment : Fragment() {
             appBarTitle = toolbarTitle
             searchView = setupSearchView()
             appToolBar.addView(searchView)
+            rv = movieListRv
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.movieSearchResult.observe(viewLifecycleOwner) {
+            if (it.status == Status.SUCCESS) {
+                moviePagingAdapter.submitData(viewLifecycleOwner.lifecycle, it.content!!)
+            }
         }
     }
 

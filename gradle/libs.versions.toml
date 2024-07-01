@@ -20,6 +20,9 @@ legacySupportV4 = "1.0.0"
 loggingInterceptorVersion = "4.9.0"
 dPrefsVersion = "1.0.5"
 roomKtx = "2.6.1"
+coilVersion = "2.3.0"
+navArgsVersion = "2.5.3"
+lifeCycleVersion = "2.5.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +47,13 @@ androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support
 logging-interceptor-dependency = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptorVersion"}
 dprefs-library = { group = "com.github.D-Soft-Tech", name = "DPrefs", version.ref = "dPrefsVersion"}
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+coil-dependency = { group = "io.coil-kt", name = "coil", version.ref = "coilVersion" }
+view-model-kts = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifeCycleVersion"}
+view-model-save-state-instance = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "lifeCycleVersion"}
+
+# Class Path Dependencies
+nav-args-dependency = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navArgsVersion"}
+dagger-classpath-dependency = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "daggerHiltVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

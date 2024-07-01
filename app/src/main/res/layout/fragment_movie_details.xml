@@ -5,7 +5,9 @@
     tools:context=".presentation.ui.fragments.MovieDetailsFragment">
 
     <data>
-
+        <variable
+            name="movieDetails"
+            type="com.example.warpspeedassessment.domain.models.MovieDetails" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
+            android:loadPoster="@{movieDetails.posterPath}"
             android:contentDescription="@string/movie_thumbnail"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_20dp"
             android:fontFamily="@font/poppins"
-            android:text="@string/directed_by"
+            android:text="@{String.format(@string/directed_by, movieDetails.directorName)}"
             android:textColor="@color/off_white"
             android:textSize="@dimen/dimen_14sp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
@@ -86,6 +89,7 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{movieDetails.title}"
                     tools:text="John Wick Chapter 4"
                     android:textSize="@dimen/dimen_18sp"
                     android:textColor="@color/white"
@@ -107,6 +111,7 @@
                     android:id="@+id/movie_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{movieDetails.voteAverageRating}"
                     tools:text="5.0"
                     android:textColor="@color/white_grey"
                     android:textSize="@dimen/dimen_18sp"
@@ -123,6 +128,7 @@
                     android:textAlignment="gravity"
                     android:layout_marginTop="@dimen/dimen_10dp"
                     android:gravity="center"
+                    android:text="@{movieDetails.voteCount}"
                     android:fontFamily="@font/poppins"
                     app:layout_constraintStart_toStartOf="@+id/title"
                     app:layout_constraintTop_toBottomOf="@+id/title"
@@ -133,6 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_20dp"
+                    android:text="@{movieDetails.runTime}"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/off_white"
                     tools:text="2h 30m"
@@ -156,6 +163,7 @@
                     android:layout_marginStart="@dimen/dimen_15dp"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/off_white"
+                    android:text="@{movieDetails.genres.get(0).name}"
                     tools:text="Action"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_duration"
                     app:layout_constraintStart_toEndOf="@+id/view2"
@@ -177,6 +185,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/off_white"
+                    android:text="@{movieDetails.releaseDate}"
                     android:layout_marginStart="@dimen/dimen_15dp"
                     app:layout_constraintStart_toEndOf="@+id/view3"
                     app:layout_constraintTop_toTopOf="@+id/movie_genre"
@@ -198,6 +207,7 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{movieDetails.overview}"
                     tools:text="@string/place_holder_movie_plot"
                     android:fontFamily="@font/poppins"
                     android:textSize="13sp"

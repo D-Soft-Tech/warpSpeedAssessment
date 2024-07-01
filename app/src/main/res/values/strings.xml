@@ -16,4 +16,5 @@
     <string name="failed_tryagain">Failed, Please try again later!</string>
     <string name="time_out">Time out, kindly try again later</string>
     <string name="server_error">Service time out, try again later</string>
+    <string name="no_records_found">No records found</string>
 </resources>

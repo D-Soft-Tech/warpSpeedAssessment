@@ -1,6 +1,8 @@
 package com.example.warpspeedassessment.di
 
+import com.example.warpspeedassessment.data.remote.apis.TMDBRequestsApiService
 import com.example.warpspeedassessment.data.remote.interceptors.AuthInterceptor
+import com.example.warpspeedassessment.data.remote.networkUtils.NetworkUtils
 import com.example.warpspeedassessment.utils.AppConstants.API_KEY_DI_NAME
 import com.example.warpspeedassessment.utils.AppConstants.AUTH_INTERCEPTOR_DI_NAME
 import com.example.warpspeedassessment.utils.AppConstants.BASE_URL_DI_NAME
@@ -62,7 +64,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun providesRetrofitForGoogleMapsNetworkCall(
+    fun providesRetrofitForAppNetworkCall(
         okHttpClient: OkHttpClient,
         @Named(BASE_URL_DI_NAME) baseUrl: String,
     ): Retrofit =
@@ -70,4 +72,14 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+    @Singleton
+    @Provides
+    fun providesTMDBRequestsApiService(
+        retrofit: Retrofit
+    ): TMDBRequestsApiService = retrofit.create(TMDBRequestsApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun providesNetworkUtils(): NetworkUtils = NetworkUtils()
 }

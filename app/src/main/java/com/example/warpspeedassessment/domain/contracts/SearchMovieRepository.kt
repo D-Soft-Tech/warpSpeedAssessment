@@ -1,10 +1,14 @@
 package com.example.warpspeedassessment.domain.contracts
 
-import retrofit2.http.Query
+import com.example.warpspeedassessment.domain.models.Movie
+import com.example.warpspeedassessment.presentation.viewStates.ViewState
+import retrofit2.Response
 
 interface SearchMovieRepository {
-    fun searchMovie(
+    suspend fun searchMovie(
         searchQuery: String,
-        pageNumber: Int
-    )
+        pageNumber: Int,
+        includesAdult: Boolean = false,
+        language: String = "en-US"
+    ): ViewState<List<Movie>?>
 }

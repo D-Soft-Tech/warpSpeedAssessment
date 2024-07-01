@@ -13,5 +13,5 @@ Java_com_example_warpspeedassessment_utils_AppParameters_getApiKey(JNIEnv *env, 
 JNIEXPORT jstring JNICALL
 Java_com_example_warpspeedassessment_utils_AppParameters_getPosterBaseUrl(JNIEnv *env,
                                                                           jobject thiz) {
-    return (*env)->NewStringUTF(env, "https://image.tmdb.org/");
+    return (*env)->NewStringUTF(env, "https://image.tmdb.org/p/w200");
 }

@@ -12,4 +12,5 @@ object AppParameters {
     val API_KEY = getApiKey()
 
     private external fun getPosterBaseUrl(): String
+    val IMAGE_BASE_URL = getPosterBaseUrl()
 }

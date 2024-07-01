@@ -46,6 +46,7 @@ dprefs-library = { group = "com.github.D-Soft-Tech", name = "DPrefs", version.re
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-percle = { id = "kotlin-parcelize"}
 kotlin-kapt-plugin = {id = "kotlin-kapt"}
 dagger-hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "daggerHiltVersion"}
 

@@ -10,8 +10,8 @@ import com.example.warpspeedassessment.domain.models.MovieDetails
 @Dao
 interface MovieDetailsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovieDetails(movieDetails: MovieDetailsEntity): Int
+    suspend fun insertMovieDetails(movieDetails: MovieDetailsEntity)
 
     @Query("SELECT * FROM movie_details WHERE id = :movieId")
-    suspend fun getMovieDetails(movieId: String): List<MovieDetails>
+    suspend fun getMovieDetails(movieId: String): MovieDetails
 }

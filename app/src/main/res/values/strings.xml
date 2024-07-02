@@ -17,4 +17,6 @@
     <string name="time_out">Time out, kindly try again later</string>
     <string name="server_error">Service time out, try again later</string>
     <string name="no_records_found">No records found</string>
+    <string name="an_error_occurred">An error occurred!</string>
+    <string name="an_error_occurred_kindly_try_again">An error occurred, Kindly try again</string>
 </resources>

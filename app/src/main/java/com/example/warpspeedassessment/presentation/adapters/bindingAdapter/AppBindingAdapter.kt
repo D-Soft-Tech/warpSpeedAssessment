@@ -1,5 +1,6 @@
 package com.example.warpspeedassessment.presentation.adapters.bindingAdapter
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import coil.load
@@ -12,7 +13,7 @@ fun ImageView.loadPoster(posterUrl: String?) {
     posterUrl?.let {
         load("$IMAGE_BASE_URL$posterUrl") {
             crossfade(true)
-            placeholder(R.drawable.animated_loader_drawable)
+            build()
         }
     }
 }

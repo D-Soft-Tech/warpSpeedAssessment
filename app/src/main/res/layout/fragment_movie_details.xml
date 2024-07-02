@@ -5,9 +5,11 @@
     tools:context=".presentation.ui.fragments.MovieDetailsFragment">
 
     <data>
+        <import type="com.example.warpspeedassessment.presentation.viewStates.Status" />
+        <import type="android.view.View" />
         <variable
-            name="movieDetails"
-            type="com.example.warpspeedassessment.domain.models.MovieDetails" />
+            name="movieViewModel"
+            type="com.example.warpspeedassessment.presentation.viewModels.MovieViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,13 +22,26 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:loadPoster="@{movieDetails.posterPath}"
+            android:loadPoster="@{movieViewModel.movieDetails.content.posterPath}"
             android:contentDescription="@string/movie_thumbnail"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="@dimen/dimen_25dp"
+            android:layout_height="@dimen/dimen_25dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:visibility="@{movieViewModel.movieDetails.status == Status.LOADING ? View.VISIBLE : View.GONE}"
+            tools:visibility="invisible"
+            android:indeterminateDrawable="@drawable/progress_bar_bg_drawable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -62,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_20dp"
             android:fontFamily="@font/poppins"
-            android:text="@{String.format(@string/directed_by, movieDetails.directorName)}"
+            android:text="@{String.format(@string/directed_by, movieViewModel.movieDetails.content.directorName)}"
             android:textColor="@color/off_white"
             android:textSize="@dimen/dimen_14sp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
@@ -89,7 +104,7 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{movieDetails.title}"
+                    android:text="@{movieViewModel.movieDetails.content.title}"
                     tools:text="John Wick Chapter 4"
                     android:textSize="@dimen/dimen_18sp"
                     android:textColor="@color/white"
@@ -111,7 +126,7 @@
                     android:id="@+id/movie_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{movieDetails.voteAverageRating}"
+                    android:text="@{movieViewModel.movieDetails.content.voteAverageRating}"
                     tools:text="5.0"
                     android:textColor="@color/white_grey"
                     android:textSize="@dimen/dimen_18sp"
@@ -128,7 +143,7 @@
                     android:textAlignment="gravity"
                     android:layout_marginTop="@dimen/dimen_10dp"
                     android:gravity="center"
-                    android:text="@{movieDetails.voteCount}"
+                    android:text="@{movieViewModel.movieDetails.content.voteCount}"
                     android:fontFamily="@font/poppins"
                     app:layout_constraintStart_toStartOf="@+id/title"
                     app:layout_constraintTop_toBottomOf="@+id/title"
@@ -139,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_20dp"
-                    android:text="@{movieDetails.runTime}"
+                    android:text="@{movieViewModel.movieDetails.content.runTime}"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/off_white"
                     tools:text="2h 30m"
@@ -163,7 +178,7 @@
                     android:layout_marginStart="@dimen/dimen_15dp"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/off_white"
-                    android:text="@{movieDetails.genres.get(0).name}"
+                    android:text="@{movieViewModel.movieDetails.content.genres.get(0).name}"
                     tools:text="Action"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_duration"
                     app:layout_constraintStart_toEndOf="@+id/view2"
@@ -185,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/off_white"
-                    android:text="@{movieDetails.releaseDate}"
+                    android:text="@{movieViewModel.movieDetails.content.releaseDate}"
                     android:layout_marginStart="@dimen/dimen_15dp"
                     app:layout_constraintStart_toEndOf="@+id/view3"
                     app:layout_constraintTop_toTopOf="@+id/movie_genre"
@@ -207,7 +222,7 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{movieDetails.overview}"
+                    android:text="@{movieViewModel.movieDetails.content.overview}"
                     tools:text="@string/place_holder_movie_plot"
                     android:fontFamily="@font/poppins"
                     android:textSize="13sp"
@@ -243,5 +258,19 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/error_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/an_error_occurred_kindly_try_again"
+            android:textSize="@dimen/dimen_16sp"
+            android:visibility="@{(movieViewModel.movieDetails.status == Status.ERROR || movieViewModel.movieDetails.status == Status.SERVER_ERROR || movieViewModel.movieDetails.status == Status.TIMEOUT) ? View.VISIBLE : View.GONE}"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -12,14 +13,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import androidx.paging.LoadType
 import androidx.recyclerview.widget.RecyclerView
 import com.example.warpspeedassessment.R
 import com.example.warpspeedassessment.databinding.FragmentSearchMovieBinding
 import com.example.warpspeedassessment.presentation.adapters.assistedFactories.MovieRecyclerViewPagingAdapterFactory
 import com.example.warpspeedassessment.presentation.adapters.pagingAdapter.MoviePagingAdapter
 import com.example.warpspeedassessment.presentation.viewModels.MovieViewModel
-import com.example.warpspeedassessment.presentation.viewStates.Status
-import dagger.assisted.AssistedFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -32,8 +33,11 @@ class SearchMovieFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var appBarTitle: TextView
     private lateinit var rv: RecyclerView
+    private lateinit var loader: ProgressBar
+    private lateinit var errorTxtView: TextView
 
     private lateinit var moviePagingAdapter: MoviePagingAdapter
+
     @Inject
     lateinit var moviePagingAdapterFactory: MovieRecyclerViewPagingAdapterFactory
 
@@ -56,8 +60,26 @@ class SearchMovieFragment : Fragment() {
         }
 
         moviePagingAdapter = moviePagingAdapterFactory.createMovieRecyclerViewPagingAdapter {
-            val action = SearchMovieFragmentDirections.actionSearchMovieFragmentToMovieDetailsFragment(it.id)
+            val action =
+                SearchMovieFragmentDirections.actionSearchMovieFragmentToMovieDetailsFragment(it)
             findNavController().navigate(action)
+        }.apply {
+            addLoadStateListener {
+                when {
+                    it.append is LoadState.NotLoading -> {
+                        loader.visibility = View.GONE
+                        errorTxtView.visibility = View.GONE
+                    }
+                    it.refresh is LoadState.Loading -> {
+                        loader.visibility = View.VISIBLE
+                        errorTxtView.visibility = View.GONE
+                    }
+                    it.refresh is LoadState.Error -> {
+                        errorTxtView.visibility = View.VISIBLE
+                        errorTxtView.text = getString(R.string.an_error_occurred)
+                    }
+                }
+            }
         }
 
         rv.adapter = moviePagingAdapter
@@ -76,15 +98,15 @@ class SearchMovieFragment : Fragment() {
             searchView = setupSearchView()
             appToolBar.addView(searchView)
             rv = movieListRv
+            loader = progressBar
+            errorTxtView = errorMessageTextView
         }
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.movieSearchResult.observe(viewLifecycleOwner) {
-            if (it.status == Status.SUCCESS) {
-                moviePagingAdapter.submitData(viewLifecycleOwner.lifecycle, it.content!!)
-            }
+            moviePagingAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 

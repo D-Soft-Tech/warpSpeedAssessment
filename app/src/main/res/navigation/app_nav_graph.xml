@@ -24,7 +24,7 @@
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details" >
         <argument
-            android:name="selectedMovieId"
-            app:argType="string" />
+            android:name="selectedMovie"
+            app:argType="com.example.warpspeedassessment.domain.models.Movie" />
     </fragment>
 </navigation>

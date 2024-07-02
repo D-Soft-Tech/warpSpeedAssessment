@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
+import androidx.paging.liveData
 import com.example.warpspeedassessment.domain.models.MovieDetails
 import com.example.warpspeedassessment.domain.usecases.contracts.GetMovieDetailsRepository
 import com.example.warpspeedassessment.domain.usecases.contracts.SearchMovieRepository
@@ -30,16 +32,7 @@ class MovieViewModel @Inject constructor(
 
     private val searchQuery: MutableLiveData<String> = MutableLiveData(SAMPLE_MOVIE_SEARCH_QUERY)
     val movieSearchResult = searchQuery.switchMap {
-        liveData(viewModelScope.coroutineContext + ioDispatcher) {
-            emit(ViewState.loading(null))
-            try {
-                searchMovieRepository.searchMovie(it, 1).collect {
-                    emit(ViewState.success(it))
-                }
-            } catch (e: Exception) {
-                emit(ViewState.error(null))
-            }
-        }
+        searchMovieRepository.searchMovie(it, 1).liveData.cachedIn(viewModelScope)
     }
 
     fun getMovieDetails(movieId: String) {

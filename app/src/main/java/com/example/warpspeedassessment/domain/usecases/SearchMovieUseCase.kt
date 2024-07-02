@@ -23,17 +23,17 @@ class SearchMovieUseCase @Inject constructor(
     private val tmdbRequestsApiService: TMDBRequestsApiService
 ) : SearchMovieRepository {
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun searchMovie(
+    override fun searchMovie(
         searchQuery: String,
         pageNumber: Int,
         includesAdult: Boolean,
         language: String
-    ): Flow<PagingData<Movie>> {
+    ): Pager<Int, Movie> {
         val pagingSrcFactory = { appDatabase.getMovieDao().getMovies(searchQuery) }
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
             remoteMediator = MovieRemoteMediator(appDatabase, tmdbRequestsApiService, searchQuery),
             pagingSourceFactory = pagingSrcFactory
-        ).flow
+        )
     }
 }

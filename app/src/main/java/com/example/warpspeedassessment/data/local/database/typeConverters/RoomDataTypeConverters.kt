@@ -7,9 +7,6 @@ import com.example.warpspeedassessment.domain.models.Movie
 import com.example.warpspeedassessment.domain.models.MovieCastDomain
 import com.example.warpspeedassessment.domain.models.MovieDetails
 import com.example.warpspeedassessment.domain.models.MovieGenreDomain
-import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toListOfMovieCastDomain
-import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toListOfMovieGenreDomain
-import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toListOfString
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovie
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieDetails
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieDetailsEntity

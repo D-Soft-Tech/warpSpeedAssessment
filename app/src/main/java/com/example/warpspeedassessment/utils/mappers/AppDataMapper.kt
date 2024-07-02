@@ -85,17 +85,11 @@ object AppDataMapper {
         pageNumber
     )
 
-    fun List<MovieCastDomain>.toListOfString(): List<String> =
-        this.map { Gson().toJson(it) }
-
     fun List<String>.toListOfMovieCastDomain(): List<MovieCastDomain> =
         this.map { Gson().fromJson(it, MovieCastDomain::class.java) }
 
     fun List<MovieGenreDomain>.toListOfString(): List<String> =
         this.map { Gson().toJson(it) }
-
-    fun List<String>.toListOfMovieGenreDomain(): List<MovieGenreDomain> =
-        this.map { Gson().fromJson(it, MovieGenreDomain::class.java) }
 
     fun MovieDetails.toMovieDetailsEntity(): MovieDetailsEntity =
         MovieDetailsEntity(

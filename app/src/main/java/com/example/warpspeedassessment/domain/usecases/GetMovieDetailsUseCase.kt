@@ -26,8 +26,8 @@ class GetMovieDetailsUseCase @Inject constructor(
         val response = tmdbRequestsApiService.getMovieDetails(movieId, language)
         val movieCastsResponse = tmdbRequestsApiService.getMovieCasts(movieId, "credits", "en-US")
         val movieDetailsFromDB = appDatabase.getMovieDetailsDao().getMovieDetails(movieId)
-        return if (movieDetailsFromDB.isNotEmpty()) {
-            ViewState.success(movieDetailsFromDB.first())
+        return if (movieDetailsFromDB != null) {
+            ViewState.success(movieDetailsFromDB)
         } else {
             networkUtils.getServerResponse(response).let {
                 if (it.content != null) {

@@ -9,6 +9,7 @@ import com.example.warpspeedassessment.data.local.database.db.AppDatabase
 import com.example.warpspeedassessment.data.remote.apis.TMDBRequestsApiService
 import com.example.warpspeedassessment.domain.models.Movie
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovie
+import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieEntity
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -43,7 +44,7 @@ class MovieRemoteMediator(
                 if (loadType == LoadType.REFRESH) {
                     database.getMovieDao().clearAll()
                 }
-                database.getMovieDao().insertMovies(movies)
+                database.getMovieDao().insertMovies(movies.map { it.toMovieEntity() })
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: IOException) {

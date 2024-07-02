@@ -9,6 +9,7 @@ import com.example.warpspeedassessment.domain.usecases.contracts.GetMovieDetails
 import com.example.warpspeedassessment.presentation.viewStates.ViewState
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieCastAndCrew
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieDetails
+import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieDetailsEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -38,7 +39,7 @@ class GetMovieDetailsUseCase @Inject constructor(
                             directorName = movieCastAndCrew.director?.name
                         }
                         appDatabase.withTransaction {
-                            appDatabase.getMovieDetailsDao().insertMovieDetails(movieDetails)
+                            appDatabase.getMovieDetailsDao().insertMovieDetails(movieDetails.toMovieDetailsEntity())
                         }
                         val result = ViewState(it.status, movieDetails, it.message)
                         result

@@ -7,11 +7,15 @@ import com.example.warpspeedassessment.domain.models.Movie
 import com.example.warpspeedassessment.domain.models.MovieCastDomain
 import com.example.warpspeedassessment.domain.models.MovieDetails
 import com.example.warpspeedassessment.domain.models.MovieGenreDomain
+import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toListOfMovieCastDomain
+import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toListOfMovieGenreDomain
+import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toListOfString
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovie
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieDetails
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieDetailsEntity
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieEntity
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class RoomDataTypeConverters {
     companion object {
@@ -19,6 +23,38 @@ class RoomDataTypeConverters {
         @TypeConverter
         fun fromMovieCastDomain(movieCastDomain: MovieCastDomain): String =
             Gson().toJson(movieCastDomain)
+
+        @JvmStatic
+        @TypeConverter
+        fun fromListOfMovieCastDomain(movieCasts: List<MovieCastDomain>): String {
+            val gson = Gson()
+            val type = object : TypeToken<List<MovieCastDomain>>() {}.type
+            return gson.toJson(movieCasts, type) ?: ""
+        }
+
+        @JvmStatic
+        @TypeConverter
+        fun toListOfMovieCastDomain(movieCastsAsString: String): List<MovieCastDomain>? {
+            val gson = Gson()
+            val type = object : TypeToken<List<MovieCastDomain>>() {}.type
+            return gson.fromJson(movieCastsAsString, type)
+        }
+
+        @JvmStatic
+        @TypeConverter
+        fun fromListOfMovieGenreDomain(movieGenres: List<MovieGenreDomain>): String {
+            val gson = Gson()
+            val type = object : TypeToken<List<MovieGenreDomain>>() {}.type
+            return gson.toJson(movieGenres, type) ?: ""
+        }
+
+        @JvmStatic
+        @TypeConverter
+        fun toListOfMovieGenreDomain(movieGenreAsString: String): List<MovieGenreDomain>? {
+            val gson = Gson()
+            val type = object : TypeToken<List<MovieGenreDomain>>() {}.type
+            return gson.fromJson(movieGenreAsString, type)
+        }
 
         @JvmStatic
         @TypeConverter

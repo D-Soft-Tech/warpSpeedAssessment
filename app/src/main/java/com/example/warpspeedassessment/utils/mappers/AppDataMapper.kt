@@ -14,6 +14,7 @@ import com.example.warpspeedassessment.domain.models.MovieCastsAndCrew
 import com.example.warpspeedassessment.domain.models.MovieCrewDomain
 import com.example.warpspeedassessment.domain.models.MovieDetails
 import com.example.warpspeedassessment.domain.models.MovieGenreDomain
+import com.google.gson.Gson
 
 object AppDataMapper {
     fun Result.toMovie(pageNumber: Int): Movie =
@@ -81,8 +82,20 @@ object AppDataMapper {
         overview,
         voteCount,
         voteAverageRating,
-        pageNum
+        pageNumber
     )
+
+    fun List<MovieCastDomain>.toListOfString(): List<String> =
+        this.map { Gson().toJson(it) }
+
+    fun List<String>.toListOfMovieCastDomain(): List<MovieCastDomain> =
+        this.map { Gson().fromJson(it, MovieCastDomain::class.java) }
+
+    fun List<MovieGenreDomain>.toListOfString(): List<String> =
+        this.map { Gson().toJson(it) }
+
+    fun List<String>.toListOfMovieGenreDomain(): List<MovieGenreDomain> =
+        this.map { Gson().fromJson(it, MovieGenreDomain::class.java) }
 
     fun MovieDetails.toMovieDetailsEntity(): MovieDetailsEntity =
         MovieDetailsEntity(

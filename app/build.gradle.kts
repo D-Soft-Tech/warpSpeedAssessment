@@ -4,7 +4,8 @@ plugins {
     id("kotlin-parcelize")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
-    //id("dagger.hilt.android.plugin")
+    id("dagger.hilt.android.plugin")
+    //id("com.google.devtools.ksp")
 }
 
 android {
@@ -63,19 +64,29 @@ dependencies {
     implementation(libs.retrofit.dependency)
     implementation(libs.gson.converter)
     implementation(libs.dagger.hilt.dependency)
-    implementation(libs.room.dependency)
     implementation(libs.paging3.dependency)
     implementation(libs.nav.fragment)
     implementation(libs.nav.ui)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.logging.interceptor.dependency)
     implementation(libs.dprefs.library)
+    // Room
     implementation(libs.androidx.room.ktx)
+    kapt(libs.room.annotation.processor.dependency)
+    implementation(libs.room.dependency)
+    implementation(libs.life.cycle)
+    implementation(libs.paging3.room)
+    implementation(libs.room.paging.dependency)
+
     implementation(libs.coil.dependency)
     implementation(libs.view.model.kts)
     implementation(libs.view.model.save.state.instance)
-    annotationProcessor(libs.room.annotation.processor.dependency)
+    implementation(libs.activity.ktx)
+    implementation(libs.fragment.ktx)
+    implementation(libs.fragment.nav)
+    implementation(libs.ui.nav)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    kapt(libs.dagger.hilt.kapt)
 }

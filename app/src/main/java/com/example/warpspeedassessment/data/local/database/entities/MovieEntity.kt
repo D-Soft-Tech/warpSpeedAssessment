@@ -15,5 +15,5 @@ data class MovieEntity(
     val overview: String,
     val voteCount: String,
     val voteAverageRating: String,
-    val pageNum: Int
+    val pageNumber: Int
 )

@@ -55,12 +55,7 @@ class SearchMovieFragment : Fragment() {
             toggleSearchView()
         }
 
-//        moviePagingAdapter = moviePagingAdapterFactory.createMovieRecyclerViewPagingAdapter {
-//            val action = SearchMovieFragmentDirections.actionSearchMovieFragmentToMovieDetailsFragment(it.id)
-//            findNavController().navigate(action)
-//        }
-
-        moviePagingAdapter = MoviePagingAdapter {
+        moviePagingAdapter = moviePagingAdapterFactory.createMovieRecyclerViewPagingAdapter {
             val action = SearchMovieFragmentDirections.actionSearchMovieFragmentToMovieDetailsFragment(it.id)
             findNavController().navigate(action)
         }

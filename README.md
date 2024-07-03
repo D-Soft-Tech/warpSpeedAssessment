@@ -27,6 +27,7 @@ This is submitted to [Warp Speed](https://warpspeedng.com/) for assessment for t
 
 > [!IMPORTANT]
 > Love my coding style? Find my contacts below:
+
 >   [Linkedin](https://www.linkedin.com/in/adebayo-oloyede)
 >   Write me an email at [Adebayo Oloyede](oloyedeadebayoolawale@gmail.com)
 >   Phone: +2349075771869

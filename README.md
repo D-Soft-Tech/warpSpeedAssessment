@@ -30,7 +30,7 @@ This is submitted to [Warp Speed](https://warpspeedng.com/) for assessment for t
 
 >   [Linkedin](https://www.linkedin.com/in/adebayo-oloyede)
 
->   Write me an email at: oloyedeadebayoolawale@gmail.com
+>   :mailbox: oloyedeadebayoolawale@gmail.com
 
->   Phone: +2349075771869
+>   :telephone_receiver: +2349075771869
 

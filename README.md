@@ -21,9 +21,9 @@ This is submitted to [Warp Speed](https://warpspeedng.com/) for assessment for t
 
 ## Screenshots
 
-<img width="459" alt="Screenshot 2024-07-03 at 05 37 02" src="https://github.com/D-Soft-Tech/warpSpeedAssessment/assets/64334649/559ddbc6-c35a-48f4-aded-1b1a964c9627">
+<img width="459" alt="Search Movie Screen" src="https://github.com/D-Soft-Tech/warpSpeedAssessment/assets/64334649/559ddbc6-c35a-48f4-aded-1b1a964c9627">
 
-<img width="456" alt="Screenshot 2024-07-03 at 05 37 29" src="https://github.com/D-Soft-Tech/warpSpeedAssessment/assets/64334649/866989f1-1d21-49f4-bd82-e63b9ac8bf35">
+<img width="456" alt="Movie Details Screen" src="https://github.com/D-Soft-Tech/warpSpeedAssessment/assets/64334649/866989f1-1d21-49f4-bd82-e63b9ac8bf35">
 
 > [!IMPORTANT]
 > Love my coding style? Find my contacts below:

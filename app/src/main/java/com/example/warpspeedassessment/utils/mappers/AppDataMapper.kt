@@ -48,11 +48,11 @@ object AppDataMapper {
     private fun Genre.toMovieGenreDomain(): MovieGenreDomain = MovieGenreDomain(id, name)
 
     fun Crew.toMovieCrewDomain() =
-        MovieCrewDomain(id.toString(), credit_id, job, name, profile_path)
+        MovieCrewDomain(id.toString(), credit_id, job, name, profile_path ?: "")
 
 
     fun Cast.toMovieCastDomain() =
-        MovieCastDomain(id.toString(), cast_id.toString(), name, profile_path)
+        MovieCastDomain(id.toString(), cast_id.toString(), name, profile_path ?: "")
 
     fun MovieCastsResponseDto.toMovieCastAndCrew(): MovieCastsAndCrew =
         MovieCastsAndCrew(

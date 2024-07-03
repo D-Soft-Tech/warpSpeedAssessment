@@ -10,6 +10,7 @@ import com.example.warpspeedassessment.presentation.viewStates.ViewState
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieCastAndCrew
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieDetails
 import com.example.warpspeedassessment.utils.mappers.AppDataMapper.toMovieDetailsEntity
+import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,33 +24,38 @@ class GetMovieDetailsUseCase @Inject constructor(
         movieId: String,
         language: String
     ): ViewState<MovieDetails> {
-        val response = tmdbRequestsApiService.getMovieDetails(movieId, language)
-        val movieCastsResponse = tmdbRequestsApiService.getMovieCasts(movieId, "credits", "en-US")
-        val movieDetailsFromDB = appDatabase.getMovieDetailsDao().getMovieDetails(movieId)
-        return if (movieDetailsFromDB != null) {
-            ViewState.success(movieDetailsFromDB)
-        } else {
-            networkUtils.getServerResponse(response).let {
-                if (it.content != null) {
-                    val movieDetails = it.content.toMovieDetails()
-                    if (movieCastsResponse.isSuccessful) {
-                        val movieCastAndCrew = movieCastsResponse.body()!!.toMovieCastAndCrew()
-                        movieDetails.apply {
-                            casts = movieCastAndCrew.cast
-                            directorName = movieCastAndCrew.director?.name
+        try {
+            val movieDetailsFromDB = appDatabase.getMovieDetailsDao().getMovieDetails(movieId)
+            return if (movieDetailsFromDB.isNotEmpty()) {
+                ViewState.success(movieDetailsFromDB.first())
+            } else {
+                val response = tmdbRequestsApiService.getMovieDetails(movieId, language)
+                val movieCastsResponse = tmdbRequestsApiService.getMovieCasts(movieId, "credits", "en-US")
+
+                networkUtils.getServerResponse(response).let {
+                    if (it.content != null) {
+                        val movieDetails = it.content.toMovieDetails()
+                        if (movieCastsResponse.isSuccessful) {
+                            val movieCastAndCrew = movieCastsResponse.body()!!.toMovieCastAndCrew()
+                            movieDetails.apply {
+                                casts = movieCastAndCrew.cast
+                                directorName = movieCastAndCrew.director?.name
+                            }
+                            appDatabase.withTransaction {
+                                appDatabase.getMovieDetailsDao().insertMovieDetails(movieDetails.toMovieDetailsEntity())
+                            }
+                            val result = ViewState(it.status, movieDetails, it.message)
+                            result
+                        } else {
+                            ViewState(it.status, null, it.message)
                         }
-                        appDatabase.withTransaction {
-                            appDatabase.getMovieDetailsDao().insertMovieDetails(movieDetails.toMovieDetailsEntity())
-                        }
-                        val result = ViewState(it.status, movieDetails, it.message)
-                        result
                     } else {
                         ViewState(it.status, null, it.message)
                     }
-                } else {
-                    ViewState(it.status, null, it.message)
                 }
             }
+        } catch (e: Exception) {
+            return ViewState.error(null, e.localizedMessage ?: "An error occurred")
         }
     }
 }

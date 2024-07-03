@@ -19,14 +19,14 @@ interface TMDBRequestsApiService {
         @Query("page") page: Int
     ): Response<MovieSearchResponseDto>
 
-    @GET("/movie/{movie_id}")
+    @GET("movie/{movie_id}")
     @AuthorizedRequest
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: String,
         @Query("language") language: String
     ): Response<MovieDetailsResponseDto>
 
-    @GET("{movie_id}/{credits}")
+    @GET("movie/{movie_id}/{credits}")
     @AuthorizedRequest
     suspend fun getMovieCasts(
         @Path("movie_id") movieId: String,

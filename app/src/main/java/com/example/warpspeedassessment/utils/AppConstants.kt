@@ -17,4 +17,6 @@ object AppConstants {
     const val LOGGING_INTERCEPTOR_DI_NAME = "LOGGING_INTERCEPTOR_DI_NAME"
     const val TIME_OUT_20 = 20L
     const val SAMPLE_MOVIE_SEARCH_QUERY = "Legend"
+    const val IMAGE_SIZE_W_200 = "w200/"
+    const val IMAGE_SIZE_W_500 = "w500/"
 }

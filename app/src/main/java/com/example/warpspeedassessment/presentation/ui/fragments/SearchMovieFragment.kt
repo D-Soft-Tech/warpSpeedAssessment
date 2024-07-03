@@ -1,5 +1,6 @@
 package com.example.warpspeedassessment.presentation.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -114,12 +116,16 @@ class SearchMovieFragment : Fragment() {
         queryHint = getString(R.string.search_movie)
         isIconified = false
         visibility = View.GONE
+        setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.color_grey))
 
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 appBarTitle.visibility = View.VISIBLE
                 searchIcon.visibility = View.VISIBLE
                 searchView.visibility = View.GONE
+                query?.let {
+                    viewModel.searchMovie(it)
+                }
                 return true
             }
 

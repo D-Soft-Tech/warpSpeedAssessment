@@ -1,5 +1,6 @@
 package com.example.warpspeedassessment.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ import com.example.warpspeedassessment.domain.usecases.contracts.SearchMovieRepo
 import com.example.warpspeedassessment.presentation.viewStates.ViewState
 import com.example.warpspeedassessment.utils.AppConstants.IO_DISPATCHER_DI_NAME
 import com.example.warpspeedassessment.utils.AppConstants.SAMPLE_MOVIE_SEARCH_QUERY
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,7 +40,8 @@ class MovieViewModel @Inject constructor(
     fun getMovieDetails(movieId: String) {
         _movieDetails.value = ViewState.loading(null)
         viewModelScope.launch(ioDispatcher) {
-            _movieDetails.postValue(getMovieDetailsRepository.getMovieDetails(movieId))
+            val movieDetails = getMovieDetailsRepository.getMovieDetails(movieId)
+            _movieDetails.postValue(movieDetails)
         }
     }
 

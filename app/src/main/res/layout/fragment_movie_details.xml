@@ -21,8 +21,8 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:loadPoster="@{movieViewModel.movieDetails.content.posterPath}"
+            android:scaleType="fitXY"
+            android:loadPosterW500="@{movieViewModel.movieDetails.content.posterPath}"
             android:contentDescription="@string/movie_thumbnail"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,8 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/action_back"
-            android:layout_marginTop="@dimen/dimen_30dp"
-            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_15dp"
             android:src="@drawable/arrow_back"
             android:rotationY="180"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,26 +91,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline">
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_20dp"
-                android:orientation="vertical">
-
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dimen_20dp"
+                android:paddingBottom="@dimen/dimen_30dp"
+                android:paddingHorizontal="@dimen/dimen_20dp">
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{movieViewModel.movieDetails.content.title}"
-                    tools:text="John Wick Chapter 4"
-                    android:textSize="@dimen/dimen_18sp"
-                    android:textColor="@color/white"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="@dimen/dimen_5dp"
                     android:fontFamily="@font/poppins_bold"
+                    android:text="@{movieViewModel.movieDetails.content.title}"
+                    android:textColor="@color/white"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/dimen_18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="John Wick Chapter 4" />
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -126,25 +133,25 @@
                     android:id="@+id/movie_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="@{movieViewModel.movieDetails.content.voteAverageRating}"
-                    tools:text="5.0"
                     android:textColor="@color/white_grey"
                     android:textSize="@dimen/dimen_18sp"
-                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/title" />
+                    app:layout_constraintTop_toTopOf="@+id/title"
+                    tools:text="5.0" />
 
                 <TextView
                     android:id="@+id/watch_count"
                     android:layout_width="wrap_content"
-                    android:background="@drawable/text_chip_background"
-                    android:textColor="@color/off_white"
                     android:layout_height="wrap_content"
-                    android:textAlignment="gravity"
                     android:layout_marginTop="@dimen/dimen_10dp"
+                    android:background="@drawable/text_chip_background"
+                    android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:text="@{movieViewModel.movieDetails.content.voteCount}"
-                    android:fontFamily="@font/poppins"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/off_white"
                     app:layout_constraintStart_toStartOf="@+id/title"
                     app:layout_constraintTop_toBottomOf="@+id/title"
                     tools:text="4k" />
@@ -154,12 +161,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_20dp"
-                    android:text="@{movieViewModel.movieDetails.content.runTime}"
                     android:fontFamily="@font/poppins"
+                    android:text="@{movieViewModel.movieDetails.content.runTime}"
                     android:textColor="@color/off_white"
-                    tools:text="2h 30m"
                     app:layout_constraintStart_toEndOf="@+id/watch_count"
-                    app:layout_constraintTop_toTopOf="@+id/watch_count" />
+                    app:layout_constraintTop_toTopOf="@+id/watch_count"
+                    tools:text="2h 30m" />
 
                 <View
                     android:id="@+id/view2"
@@ -177,12 +184,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_15dp"
                     android:fontFamily="@font/poppins"
-                    android:textColor="@color/off_white"
                     android:text="@{movieViewModel.movieDetails.content.genres.get(0).name}"
-                    tools:text="Action"
+                    android:textColor="@color/off_white"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_duration"
                     app:layout_constraintStart_toEndOf="@+id/view2"
-                    app:layout_constraintTop_toTopOf="@+id/movie_duration" />
+                    app:layout_constraintTop_toTopOf="@+id/movie_duration"
+                    tools:text="Action" />
 
                 <View
                     android:id="@+id/view3"
@@ -198,10 +205,10 @@
                     android:id="@+id/movie_release_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins"
-                    android:textColor="@color/off_white"
-                    android:text="@{movieViewModel.movieDetails.content.releaseDate}"
                     android:layout_marginStart="@dimen/dimen_15dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@{movieViewModel.movieDetails.content.releaseDate}"
+                    android:textColor="@color/off_white"
                     app:layout_constraintStart_toEndOf="@+id/view3"
                     app:layout_constraintTop_toTopOf="@+id/movie_genre"
                     tools:text="19 Dec 2003" />
@@ -211,10 +218,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_20dp"
-                    android:textColor="@color/off_white"
                     android:fontFamily="@font/poppins"
-                    android:textSize="@dimen/dimen_16sp"
                     android:text="@string/story_line"
+                    android:textColor="@color/off_white"
+                    android:textSize="@dimen/dimen_16sp"
                     app:layout_constraintStart_toStartOf="@+id/watch_count"
                     app:layout_constraintTop_toBottomOf="@+id/watch_count" />
 
@@ -222,14 +229,14 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{movieViewModel.movieDetails.content.overview}"
-                    tools:text="@string/place_holder_movie_plot"
                     android:fontFamily="@font/poppins"
-                    android:textSize="13sp"
-                    android:textColor="@color/white_grey"
                     android:justificationMode="inter_word"
+                    android:text="@{movieViewModel.movieDetails.content.overview}"
+                    android:textColor="@color/white_grey"
+                    android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="@+id/movie_story_line"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_story_line" />
+                    app:layout_constraintTop_toBottomOf="@+id/movie_story_line"
+                    tools:text="@string/place_holder_movie_plot" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -237,24 +244,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_20dp"
                     android:fontFamily="@font/poppins"
-                    android:textSize="@dimen/dimen_16sp"
-                    android:textColor="@color/off_white"
                     android:text="@string/top_casts"
+                    android:textColor="@color/off_white"
+                    android:textSize="@dimen/dimen_16sp"
                     app:layout_constraintStart_toStartOf="@+id/textView3"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_casts_rv"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_5dp"
                     android:orientation="horizontal"
-                    tools:listitem="@layout/top_casts_rv_item_layout"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:listitem="@layout/top_casts_rv_item_layout" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
